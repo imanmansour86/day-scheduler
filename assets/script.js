@@ -1,19 +1,11 @@
-console.log(moment().format());
 var container = $(".container");
 
-//Display today's date on top of the page
-$("#currentDay").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
-
-function compareTime() {
-  var currentTime = moment().format("hh:mm"); //get current time
-  console.log(currentTime);
-
-  var first = "09:00";
-  var t = moment("9").format("hh:mm");
-  console.log(t);
-
-  console.log(moment("09:00").isBefore("12:00", "hour"));
+function displayTime() {
+  //Display today's date on top of the page
+  $("#currentDay").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
 }
+
+setInterval(displayTime, 1000);
 
 container.on("click", ".save-button", function (event) {
   console.dir(event.target.parentElement);
@@ -21,10 +13,6 @@ container.on("click", ".save-button", function (event) {
   //look for the text in input for the corresponding clicked save button
   var enteredTxt = event.target.parentElement.children[1].value;
 
-  console.log(
-    "text entered by user is " +
-      event.target.parentElement.children[0].outerText
-  );
   //get the time for the corresponding input
   var currentTime = event.target.parentElement.children[0].outerText;
 
@@ -36,17 +24,16 @@ container.on("click", ".save-button", function (event) {
 function getEvents() {
   var formattedTime = []; //array to store all times
   //format 9:00 am start time
-  var startTime = moment().set("hour", 9).set("minute", 0).set("second", 0);
-  console.log("time is " + startTime);
+  var startTime = moment().set("hour", 9).set("minute", 0).set("second", 0); //moment object
 
   for (i = 0; i <= 10; i++) {
     var formatted = startTime.format("hh:mm A");
     formattedTime[i] = formatted;
-    startTime.add(1, "hour");
 
-    console.log("formated time is", formattedTime);
+    startTime.add(1, "hour");
   }
 
+  startTime = moment().set("hour", 9).set("minute", 0).set("second", 0); //moment object
   for (var i = 0; i < formattedTime.length; i++) {
     var rootEl = $("#root");
 
@@ -68,7 +55,8 @@ function getEvents() {
       .attr("type", "text")
       .addClass("form-control")
       .attr("aria-label", "Large")
-      .attr("aria-describedby", "inputGroup-sizing-sm");
+      .attr("aria-describedby", "inputGroup-sizing-sm")
+      .attr("id", "input-" + i);
 
     parentDiv.append(childDiv);
     parentDiv.append(inputTxt);
@@ -84,6 +72,15 @@ function getEvents() {
     rootEl.append(parentDiv);
 
     parentDiv.append(saveBtn);
+
+    if (moment(startTime).hour() === moment().hour()) {
+      $("#input-" + i).css("background-color", "red");
+    } else if (moment(startTime).isBefore(moment())) {
+      $("#input-" + i).css("background-color", "grey");
+    } else if (moment(startTime).isAfter(moment())) {
+      $("#input-" + i).css("background-color", "green");
+    }
+    startTime.add(1, "hour");
   }
 }
 

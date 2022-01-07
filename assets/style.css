@@ -85,3 +85,15 @@ button {
   display: inline-block;
   width: 100px;
 }
+
+#first-item {
+  background: gray;
+}
+
+#second-item {
+  background: red;
+}
+
+#third-item {
+  background: green;
+}
