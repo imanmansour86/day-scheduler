@@ -2,19 +2,19 @@
 
 ## Introduction
 
-This project builds a daily planner where time can be managed effectively based on curent time, passed time and future time.
+This project builds a daily planner where time can be managed effectively based on curent time, passed time and future time. When open the page initially, user is presented with events that are stored in local storage, if they exist.
 
 ## Summary
 
-When the page loads, a planner is displayed with time blocks for standard business hours. Each timeblock is color coded to indicate if the event passed, if it's current event or future event. The color code for indicator is displayed in header, along with today's current day/time. User can enter text in a time block and click the save button. The event is saved in local storage so the saved events persists on page refresh.
+When the page loads, a planner is displayed with time blocks for standard business hours. Each timeblock is color coded to indicate if the event passed, if it's current event or future event. The color code legend is displayed in the header, along with today's current day/time. User can enter text in a time block and click the save button. The event is saved in local storage so the saved events persists on page refresh.
 
 ## Screenshots from the app
 
-Question
-![Page Header](/assets/Doc-header.png)
+Page Header showing current time and legend
+![Page Header](/assets/images/Doc-header.png)
 
 Events by color
-![image](/assets/events.png)
+![image](/assets/images/events.png)
 
 ## Built With
 

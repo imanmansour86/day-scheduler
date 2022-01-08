@@ -70,7 +70,7 @@ textarea {
   transition: all 0.3s ease-in-out;
 }
 button {
-  background-image: url("save-icon.png");
+  background-image: url("images/save-icon.png");
   color: #000000;
 
   height: 50px;
@@ -96,4 +96,8 @@ button {
 
 #third-item {
   background: green;
+}
+
+.custom {
+  width: 120px;
 }

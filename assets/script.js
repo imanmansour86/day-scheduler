@@ -40,11 +40,14 @@ function getEvents() {
     var parentDiv = $("<div>")
       .addClass("input-group")
       .addClass("input-group-lg");
-    var childDiv = $("<div>").addClass("input-group-prepend");
+    var childDiv = $("<div>")
+      .addClass("input-group-prepend")
+      .addClass("custom");
     var timeTxt = $("<span>")
       .addClass("input-group-text")
       .addClass("custom-width")
       .addClass("current-time")
+      .addClass("custom")
       .attr("id", "inputGroup-sizing-lg");
 
     childDiv.append(timeTxt);
