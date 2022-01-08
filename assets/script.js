@@ -34,9 +34,20 @@ container.on("click", ".save-button", function (event) {
 
 //read items from storage
 function getEvents() {
-  allTimes = ["9", "10", "11"];
+  var formattedTime = []; //array to store all times
+  //format 9:00 am start time
+  var startTime = moment().set("hour", 9).set("minute", 0).set("second", 0);
+  console.log("time is " + startTime);
 
-  for (var i = 0; i < allTimes.length; i++) {
+  for (i = 0; i <= 10; i++) {
+    var formatted = startTime.format("hh:mm A");
+    formattedTime[i] = formatted;
+    startTime.add(1, "hour");
+
+    console.log("formated time is", formattedTime);
+  }
+
+  for (var i = 0; i < formattedTime.length; i++) {
     var rootEl = $("#root");
 
     var parentDiv = $("<div>")
@@ -46,20 +57,23 @@ function getEvents() {
     var timeTxt = $("<span>")
       .addClass("input-group-text")
       .addClass("custom-width")
+      .addClass("current-time")
       .attr("id", "inputGroup-sizing-lg");
 
     childDiv.append(timeTxt);
 
-    timeTxt.text(allTimes[i]);
+    timeTxt.text(formattedTime[i]);
 
     var inputTxt = $("<input>")
       .attr("type", "text")
       .addClass("form-control")
       .attr("aria-label", "Large")
-      .attr("aria-describedby", "inputGroup-sizing-sm")
-      .appendTo(childDiv);
+      .attr("aria-describedby", "inputGroup-sizing-sm");
 
-    var currentEvent = localStorage.getItem(allTimes[i]) || "";
+    parentDiv.append(childDiv);
+    parentDiv.append(inputTxt);
+
+    var currentEvent = localStorage.getItem(formattedTime[i]) || "";
     inputTxt.val(currentEvent);
 
     var saveBtn = $("<button>")
@@ -68,24 +82,9 @@ function getEvents() {
       .addClass("save-button");
 
     rootEl.append(parentDiv);
-    parentDiv.append(childDiv);
 
-    childDiv.append(saveBtn);
+    parentDiv.append(saveBtn);
   }
 }
 
 getEvents();
-/* <div class="input-group input-group-lg">
-        <div class="input-group-prepend">
-          <span class="input-group-text custom-width" id="inputGroup-sizing-lg"
-            >4:00pm</span
-          >
-        </div>
-        <input
-          type="text"
-          class="form-control"
-          aria-label="Large"
-          aria-describedby="inputGroup-sizing-sm"
-        />
-        <button type="button" class="btn btn-light save-button"></button>
-      </div> */
