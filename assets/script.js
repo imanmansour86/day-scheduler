@@ -7,11 +7,17 @@ function displayTime() {
 
 setInterval(displayTime, 1000);
 
+//save text entered by user in locale storage on click
 container.on("click", ".save-button", function (event) {
   console.dir(event.target.parentElement);
 
   //look for the text in input for the corresponding clicked save button
-  var enteredTxt = event.target.parentElement.children[1].value;
+  var enteredTxt = event.target.parentElement.children[1].value.trim();
+
+  //return if user enters an empty string
+  if (enteredTxt === "") {
+    return false;
+  }
 
   //get the time for the corresponding input
   var currentTime = event.target.parentElement.children[0].outerText;
@@ -27,16 +33,10 @@ function getEvents() {
   var startTime = moment().set("hour", 9).set("minute", 0).set("second", 0); //moment object
 
   for (i = 0; i <= 10; i++) {
-    var formatted = startTime.format("hh:mm A");
-    formattedTime[i] = formatted;
+    var formatted = startTime.format("hh:mm A"); //format time to show the hour
 
-    startTime.add(1, "hour");
-  }
-
-  startTime = moment().set("hour", 9).set("minute", 0).set("second", 0); //moment object
-  for (var i = 0; i < formattedTime.length; i++) {
+    //create html elements
     var rootEl = $("#root");
-
     var parentDiv = $("<div>")
       .addClass("input-group")
       .addClass("input-group-lg");
@@ -48,8 +48,7 @@ function getEvents() {
       .attr("id", "inputGroup-sizing-lg");
 
     childDiv.append(timeTxt);
-
-    timeTxt.text(formattedTime[i]);
+    timeTxt.text(formatted);
 
     var inputTxt = $("<input>")
       .attr("type", "text")
@@ -61,7 +60,7 @@ function getEvents() {
     parentDiv.append(childDiv);
     parentDiv.append(inputTxt);
 
-    var currentEvent = localStorage.getItem(formattedTime[i]) || "";
+    var currentEvent = localStorage.getItem(formatted) || "";
     inputTxt.val(currentEvent);
 
     var saveBtn = $("<button>")
@@ -70,9 +69,9 @@ function getEvents() {
       .addClass("save-button");
 
     rootEl.append(parentDiv);
-
     parentDiv.append(saveBtn);
 
+    //change input bg color based on comparing time with current time
     if (moment(startTime).hour() === moment().hour()) {
       $("#input-" + i).css("background-color", "red");
     } else if (moment(startTime).isBefore(moment())) {
