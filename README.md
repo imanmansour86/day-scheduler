@@ -46,4 +46,4 @@ Iman Mansour
 
 ## License
 
-[MIT Open Source Software](https://choosealicense.com/licenses/mit/)
+This project is licensed under the MIT License
